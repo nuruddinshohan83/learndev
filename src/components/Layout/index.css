@@ -1,0 +1,8 @@
+.navbar,
+.mainbar,
+.sidebar {
+    height: 100vh;
+}
+.navbar > ul {
+    list-style-type: none;
+}
