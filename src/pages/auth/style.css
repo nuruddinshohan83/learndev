@@ -1,0 +1,52 @@
+body {
+    background-color: #e9ecf3;
+    color: #1c1c28;
+}
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+.form {
+    width: 30%;
+
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 2.5rem 1.5rem;
+    background-color: white;
+    margin-top: 100px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+}
+.form > h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 1rem 0 1.5rem 0;
+}
+.form > label {
+    display: block;
+    font-size: 1.5rem;
+}
+.form > input {
+    width: 100%;
+    padding: 0.8rem;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1.5px solid #8f90a6;
+    border-radius: 8px;
+    outline: none;
+}
+.form > button {
+    font-size: 1.2rem;
+    background-color: #9ecbdc; /* Green */
+    border: none;
+    color: rgb(0, 0, 0);
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 1rem;
+}
+.form > p {
+    margin: 0.8rem 0;
+}

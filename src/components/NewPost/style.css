@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap");
+.post-cover {
+    box-sizing: border-box;
+    width: 100%;
+    height: 25vh;
+    background-color: gray;
+    margin: 1rem 0;
+    align-items: flex-end;
+
+    background-position: center;
+    background-size: cover;
+}
+.img-input {
+    color: black;
+}
+.input {
+    width: 100%;
+    height: auto;
+    resize: none;
+    border: none;
+    outline: none;
+    overflow: hidden;
+    padding: 0;
+    margin: 0.5rem 0;
+}
+.heading {
+    font-size: 32px;
+    font-family: "Mulish", sans-serif;
+    font-weight: 700;
+}
+.sub-heading {
+    font-size: 20px;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-weight: 300;
+}
+.contant {
+    height: 70vh;
+    border: 1px solid black;
+    font-size: 16px;
+    padding: 0.4rem 0;
+}
+/*
+    border: none;
+*/

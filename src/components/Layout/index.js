@@ -2,7 +2,7 @@ import Sidebar from "./Sidebar"
 import Mainbar from "./Mainbar"
 import Navbar from "./Navbar"
 
-import "./index.css"
+import "./style.css"
 
 const Layout = ({ postComp, sidePost }) => {
     return (
