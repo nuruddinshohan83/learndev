@@ -6,40 +6,69 @@ import "./style.css"
 
 const Commnets = () => {
     let [toggle, setToggle] = useState(false)
-    let [comment, setComment] = useState([])
+    let [ancestor, setAncestor] = useState([])
 
     let ref = firebase.firestore().collection("comments")
     function getParentComments() {
-        console.log("fucntion called ")
+        //console.log("fucntion called ")
         ref.where("postid", "==", "test")
+            .where("parent", "==", null)
             .get()
             .then((querySnapshot) => {
-                let dataItems = []
+                let anc = []
+
                 querySnapshot.forEach((doc) => {
-                    dataItems.push(doc.data())
+                    let temp = doc.data()
+                    temp.id = doc.id
+                    anc.push(temp)
                 })
-                console.log(dataItems)
-                setComment(dataItems)
+                console.log(anc)
+                setAncestor(anc)
             })
             .catch((error) => {
                 console.log("Error getting documents: ", error)
             })
     }
-    function handleClick() {
+    function loadComment() {
         setToggle(!toggle)
         //console.log(comment.length)
-        if (comment.length == 0) {
+        if (ancestor.length === 0) {
             //console.log("empty")
             getParentComments()
         }
     }
+
     return (
         <div className="">
-            <div onClick={handleClick}>Comment</div>
-            {toggle && <Comment />}
-            <AddData />
+            <div onClick={loadComment}>Comment</div>
+            {toggle && (
+                <CommentHolder>
+                    <p>comment holder</p>
+                    {ancestor.map((el, i) => {
+                        if (el.parent === null) {
+                            return (
+                                <Comment
+                                    ancestor={ancestor}
+                                    data={el}
+                                    key={i}
+                                ></Comment>
+                            )
+                        }
+                    })}
+                </CommentHolder>
+            )}
         </div>
     )
 }
-
+function CommentHolder(props) {
+    return (
+        <div>
+            <p>test</p>
+            {props.children}
+        </div>
+    )
+}
 export default Commnets
+/*
+
+*/

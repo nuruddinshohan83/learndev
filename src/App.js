@@ -19,6 +19,7 @@ function App() {
                 <Switch>
                     <Route path="/post" exact component={Commnets} />
                 </Switch>
+
                 <Switch>
                     <Route path="/upload" exact component={ImageUploader} />
                 </Switch>

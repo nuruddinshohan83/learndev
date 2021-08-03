@@ -1,13 +1,37 @@
 import { useState } from "react"
 import "./style.css"
 import userimg from "../../assets/img/userimg.jpg"
+import firebase from "../../firebase/config"
+import NestedSection from "./NestedSection"
 
-const Comment = () => {
+const Comment = (props) => {
     let [replyToggle, setReplyToggle] = useState(false)
-    function fetchCildComment() {}
+    let [nestedToggle, setNestedToggle] = useState(false)
+    let [nestedComment, setNestedComment] = useState([])
+
+    function fetchNestedComment() {
+        let ref = firebase.firestore().collection("comments")
+        ref.where("ancestor", "==", `${props.data.id}`)
+            .get()
+            .then((querySnapshot) => {
+                let data = []
+
+                querySnapshot.forEach((doc) => {
+                    let temp = doc.data()
+                    temp.id = doc.id
+                    data.push(temp)
+                })
+                //console.log(data)
+                setNestedComment(data)
+            })
+            .catch((error) => {
+                //console.log("Error getting documents: ", error)
+            })
+    }
+
     return (
         <div className="comment col">
-            <div className="row ">
+            <div className="row">
                 <div
                     className="userimg"
                     style={{
@@ -19,20 +43,25 @@ const Comment = () => {
                     <p>Post time</p>
                 </div>
             </div>
+            <p>{props.data.id}</p>
             <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
                 mollitia, molestiae quas vel sint commodi repudiandae
                 consequuntur voluptatum laborum numquam blanditiis harum
                 quisquam eius sed odit fugiat iusto fuga praesentium optio,
                 eaque rerum! Provident similique accusantium nemo autem.
-                Veritatis obcaecati tenetur iure eius earum ut molestias
-                architecto voluptate aliquam nihil, eveniet aliquid culpa
-                officia aut! Impedit sit sunt quaerat, odit, tenetur error,
-                harum nesciunt ipsum debitis quas aliquid. Reprehenderit, quia.
-                Quo neque error repudiandae fuga?
             </p>
             <div className="row">
-                <div className="comment-btn" onClick={fetchCildComment}>
+                <div
+                    className="comment-btn"
+                    onClick={() => {
+                        setNestedToggle(!nestedToggle)
+                        if (nestedComment.length === 0) {
+                            //console.log("nestedComment == 0")
+                            fetchNestedComment()
+                        }
+                    }}
+                >
                     Comment{" "}
                 </div>
                 <div
@@ -44,6 +73,14 @@ const Comment = () => {
                     Reply
                 </div>
             </div>
+            {nestedToggle && (
+                <div>
+                    <NestedSection
+                        data={props.data}
+                        nestedComment={nestedComment}
+                    />
+                </div>
+            )}
             {replyToggle && <CommentReply />}
         </div>
     )
